@@ -1,10 +1,17 @@
+/* eslint-disable */
 import logo from './logo.svg';
 import './App.css';
 import { Navbar,Container,Nav,NavDropdown,Button,Carousel } from 'react-bootstrap';
-import test from './test.png'
+import data from './data.js';
+import backImg from './background.jpg';
+import { useState } from 'react';
+
+import { Link, Route, Switch } from 'react-router-dom'
+
 function App() {
 
-  let color = {color:'red'}
+  let [shoes, shoesUpdate] = useState(data) // 신발 목록
+  let [flag, flagUpdate] = useState(true) // 컴포넌트 flag값
 
   return (
     <div className="App">
@@ -27,54 +34,71 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Carousel>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={test}
-            alt="First slide"
-          />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        {/* <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="./gigaPic.PNG"
-            alt="Second slide"
-          />
 
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item> */}
-        {/* <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="./gigaPic.PNG"
-            alt="Third slide"
-          />
-
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-          </Carousel.Caption>
-        </Carousel.Item> */}
-      </Carousel>
-{/* 
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4">111</div>
-          <div className="col-md-4">222</div>
-          <div className="col-md-4">333</div>
+      {/* exact는 포함되어도 무시 */}
+      <Route exact path="/"> 
+        <Carousel>
+          <Carousel.Item>
+            <img
+              className="d-block w-100"
+              src={backImg}
+              alt="First slide"
+            />
+            <Carousel.Caption>
+              <h3>20% Season Off</h3>
+              <p>Nulla vitae elit libero, a pharetra e mollis interdum. Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+        <br/>
+        
+        <div className="container">
+          <div className="row">
+            {/* 위에 반복 container 반복문으로 컴포넌트 생성 */}
+            {
+              shoes.map((item, idx)=> {
+                return <SHOESCOMPONENT shoes={item} idx={idx}></SHOESCOMPONENT>
+              })
+            }
+          </div>
         </div>
-      </div> */}
+      </Route>
 
+
+      <Route path="/detail">
+        <Detail></Detail>
+      </Route> 
+      {/* <Route path="/" component={Modal}></Route> */}
     </div>
   );
 }
 
+function SHOESCOMPONENT (param,idx) {
+  return (
+      <div className="col-md-4">
+        <img src={param.shoes.src} width="100%"></img>
+        <h4>{param.shoes.title} </h4>
+        <p>{param.shoes.content} </p>
+        <p>{param.shoes.price}</p>
+      </div>
+  )
+};
+
+function Detail(){
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-md-6">
+          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+        </div>
+        <div className="col-md-6 mt-4">
+          <h4 className="pt-5">상품명</h4>
+          <p>상품설명</p>
+          <p>120000원</p>
+          <button className="btn btn-danger">주문하기</button> 
+        </div>
+      </div>
+  </div>  
+  )
+};
 export default App;

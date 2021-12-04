@@ -2,15 +2,11 @@
   text-align: center;
 }
 
-.jumbotron { 
-  background-image: url(./gigaPic.PNG);
+/* .jumbotron { 
+  background-image: url(./gigaPic.png);
   background-size: cover;
   color:white; 
-}
-
-.jumbotron jumBtn {
-  position: sticky
-}
+} */
 
 .App-logo {
   height: 40vmin;
