@@ -1,8 +1,37 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useHistory , useParams} from 'react-router';
+import Styled from 'styled-components';
+// import './detail.scss';
+
+/*****************************
+ *  CSS 방법 2개
+ *  npm install ~~ 할 때 잘 안깔리는 것들은 버전확인...
+ ****************************/
+
+/************************************
+// 1. npm install styled-components
+*************************************/
+let Box = Styled.div`
+padding: 20px;
+`;
+let BoxDetail = Styled.h4`
+  font-size : 20px;
+  color: ${props => props.setColor}
+`;
+
+/************************************
+// 2. npm install node-sass
+*************************************/
+
+
 
 function Detail(param){
 
+    // 컴포넌트가 mount, update 되었을 때
+    useEffect( ()=>{
+      console.log('언제 실행??21111111111111111')
+    });
+    console.log('언제실행?222222222222222')
     let history = useHistory();
 
     // useParams() 안에는 { 사용자가 입력한  URL 파라미터들 }
@@ -17,12 +46,18 @@ function Detail(param){
     // });
 
     // 방법2 (find)
-    let temp = param.shoes.find((item)=>{
-        return item.id == id
-    })
+    let temp = param.shoes.find( item => item.id == id);
     console.log(temp)
+
+    function test() {
+      alert('11')
+    }
+
     return (
-      <div className="container">
+      <div className="container" >
+        <Box>
+          <BoxDetail setColor="green">제목입니다.</BoxDetail>
+        </Box>
         <div className="row">
           <div className="col-md-6">
             <img src={temp.src} width="100%" />
@@ -37,7 +72,8 @@ function Detail(param){
                 history.push('/') // 경로
             }}>
             뒤로가기
-            </button>
+            </button>&nbsp;
+            <button className="btn btn-success" onClick={test}>alert</button>
           </div>
         </div>
     </div>  

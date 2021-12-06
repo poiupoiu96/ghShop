@@ -1,0 +1,19 @@
+/* // .red {
+//     color: red
+// }
+
+// ↓↓↓↓↓ sass 문법 ↓↓↓↓↓
+
+$mainColor: #ff0000;
+.red {
+    color: $mainColor
+}
+
+div.container {
+    h4 {
+        color: blue;
+    }
+    p {
+        color: green
+    }
+} */
