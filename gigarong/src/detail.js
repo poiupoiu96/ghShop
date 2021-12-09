@@ -22,62 +22,97 @@ let BoxDetail = Styled.h4`
 /************************************
 // 2. npm install node-sass
 *************************************/
-
+// 안깔림.. 
+// TODO 주말에 다시시도
 
 
 function Detail(param){
+  
+  let [compoDisabled, compoDisabledUpdate] = useState(true)
+  let [inputState, inputStateUpdate] = useState('')
+  console.log('111111')
 
-    // 컴포넌트가 mount, update 되었을 때
-    useEffect( ()=>{
-      console.log('언제 실행??21111111111111111')
-    });
-    console.log('언제실행?222222222222222')
-    let history = useHistory();
+  /********************************************
+   *  useEffect는 몇개씩 선언 가능
+   *  mount, udate시
+   *  unmount 시
+   *  , [] => 조건 입력시 해당 변경시만
+  ********************************************/
+  // 컴포넌트가 mount, update 되었을 때
+  useEffect( ()=>{
+    console.log('언제 실행??')
+    let timer = setTimeout(()=>{
+      console.log('2초뒤 실행')
+      compoDisabledUpdate(false)
+    }, 2000)
+    console.log('이건 한번만 떠야함;;')
+    return clearTimeout(timer)
+  }, [compoDisabled]);
 
-    // useParams() 안에는 { 사용자가 입력한  URL 파라미터들 }
-    let { id } = useParams();
+  // 사라질 때 실행됨 unMount
+  // useEffect(()=>{
+  //   return ()=>{}
+  // })
 
-    // 방법1 (반복문)
-    // let temp = {}
-    // param.shoes.forEach( (item, idx) => {
-    //     if ( item.id == id ) {
-    //         temp = item
-    //     }
-    // });
+  console.log('2222222')
+  let history = useHistory();
 
-    // 방법2 (find)
-    let temp = param.shoes.find( item => item.id == id);
-    console.log(temp)
+  // useParams() 안에는 { 사용자가 입력한  URL 파라미터들 }
+  let { id } = useParams();
 
-    function test() {
-      alert('11')
-    }
+  // 방법1 (반복문)
+  // let temp = {}
+  // param.shoes.forEach( (item, idx) => {
+  //     if ( item.id == id ) {
+  //         temp = item
+  //     }
+  // });
 
-    return (
-      <div className="container" >
-        <Box>
-          <BoxDetail setColor="green">제목입니다.</BoxDetail>
-        </Box>
-        <div className="row">
-          <div className="col-md-6">
-            <img src={temp.src} width="100%" />
-          </div>
-          <div className="col-md-6 mt-4">
-            <h4 className="pt-5">{temp.title}</h4>
-            <p>{temp.content}</p>
-            <p>{temp.price}</p>
-            <button className="btn btn-danger">주문하기</button>&nbsp;
-            <button className="btn btn-primary" onClick={ ()=> {
-                // history.goBack() // 뒤로가기
-                history.push('/') // 경로
-            }}>
-            뒤로가기
-            </button>&nbsp;
-            <button className="btn btn-success" onClick={test}>alert</button>
-          </div>
+  // 방법2 (find)
+  let temp = param.shoes.find( item => item.id == id);
+  console.log(temp)
+
+  function test() {
+    alert('11')
+  }
+  console.log('333333333')
+  
+  return  (
+    <div className="container" >
+       {/* {compoDisabled &&
+          <Box>
+            <BoxDetail setColor="green">제목입니다.</BoxDetail>
+          </Box>
+      } */}
+
+      { compoDisabled === true ?  
+          <Box>
+            <BoxDetail setColor="green">제목입니다.</BoxDetail>
+          </Box> : null 
+      }
+ 
+      <input onChange={(e)=>{inputStateUpdate(e.target.value)}}/>
+
+      <div className="row">
+        <div className="col-md-6">
+          <img src={temp.src} width="100%" />
         </div>
+        <div className="col-md-6 mt-4">
+          <h4 className="pt-5">{temp.title}</h4>
+          <p>{temp.content}</p>
+          <p>{temp.price}</p>
+          <button className="btn btn-danger">주문하기</button>&nbsp;
+          <button className="btn btn-primary" onClick={ ()=> {
+              // history.goBack() // 뒤로가기
+              history.push('/') // 경로
+          }}>
+          뒤로가기
+          </button>&nbsp;
+          <button className="btn btn-success" onClick={test}>alert</button>
+        </div>
+      </div>
     </div>  
-    )
+  )
 }
 
 export default Detail;

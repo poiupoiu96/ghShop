@@ -6,6 +6,7 @@ import data from './data.js';
 import backImg from './background.jpg';
 import React, { useState } from 'react';
 import Detail from './detail.js';
+import axios from 'axios'
 
 import { Link, Route, Switch } from 'react-router-dom'
 
@@ -13,7 +14,7 @@ function App() {
 
   let [shoes, shoesUpdate] = useState(data) // 신발 목록
   let [flag, flagUpdate] = useState(true) // 컴포넌트 flag값
-
+  console.log('App.js ~~')
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -62,12 +63,35 @@ function App() {
               {/* 위에 반복 container 반복문으로 컴포넌트 생성 */}
               {
                 shoes.map((item, idx)=> {
-                  return <SHOESCOMPONENT shoes={item} idx={idx}></SHOESCOMPONENT>
+                  return <SHOESCOMPONENT shoes={item} idx={idx} key={idx}></SHOESCOMPONENT>
                 })
               }
             </div>
           </div>
+
+          <button className="btn btn-danger" onClick={ ()=>{
+              axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((res)=>{ 
+                console.log('성공')
+                console.log(res) 
+                let tempShoes = [...shoes]
+                let pushShoes = tempShoes.concat(res.data)
+
+                pushShoes.filter((item) => {
+                  if (item.src == null || item.src == undefined) {
+                    item.src = 'https://codingapple1.github.io/shop/shoes1.jpg'
+                  }
+                  return item
+                })
+
+                shoesUpdate(pushShoes)
+              })
+              .catch(()=>{
+                console.log('실패') })
+          }}> 더보기 </button>
+
         </Route>
+        
 
         {/* :id란 detail/ 뒤에 아무거나 와도 보여줘라 */}
         {/* :작명 */}
