@@ -25,12 +25,10 @@ let BoxDetail = Styled.h4`
 // 안깔림.. 
 // TODO 주말에 다시시도
 
-
 function Detail(param){
   
-  let [compoDisabled, compoDisabledUpdate] = useState(true)
-  let [inputState, inputStateUpdate] = useState('')
-  console.log('111111')
+  let [compoDisabled, compoDisabledUpdate] = useState(true) 
+  console.log('params', param)
 
   /********************************************
    *  useEffect는 몇개씩 선언 가능
@@ -70,7 +68,7 @@ function Detail(param){
 
   // 방법2 (find)
   let temp = param.shoes.find( item => item.id == id);
-  console.log(temp)
+  console.log('temp',temp)
 
   function test() {
     alert('11')
@@ -87,11 +85,9 @@ function Detail(param){
 
       { compoDisabled === true ?  
           <Box>
-            <BoxDetail setColor="green">제목입니다.</BoxDetail>
+            <BoxDetail setColor="green">css테스트.</BoxDetail>
           </Box> : null 
       }
- 
-      <input onChange={(e)=>{inputStateUpdate(e.target.value)}}/>
 
       <div className="row">
         <div className="col-md-6">
@@ -101,7 +97,9 @@ function Detail(param){
           <h4 className="pt-5">{temp.title}</h4>
           <p>{temp.content}</p>
           <p>{temp.price}</p>
-          <button className="btn btn-danger">주문하기</button>&nbsp;
+          <STOCKDIVINFO param={param.stock}></STOCKDIVINFO>
+          <br/>
+          <button className="btn btn-danger" onClick={ ()=> { param.stockUpdate([9,9,9])}}>주문하기</button>&nbsp;
           <button className="btn btn-primary" onClick={ ()=> {
               // history.goBack() // 뒤로가기
               history.push('/') // 경로
@@ -112,6 +110,13 @@ function Detail(param){
         </div>
       </div>
     </div>  
+  )
+}
+
+function STOCKDIVINFO (param) {
+  console.log('stockdiv',param)
+  return (
+    <div>재고  : {param.param}</div>
   )
 }
 

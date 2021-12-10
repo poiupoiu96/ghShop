@@ -14,12 +14,16 @@ function App() {
 
   let [shoes, shoesUpdate] = useState(data) // 신발 목록
   let [flag, flagUpdate] = useState(true) // 컴포넌트 flag값
+  let [picNum, picNumUpdate] = useState(3)
   console.log('App.js ~~')
+
+  let [stock, stockUpdate] = useState([10,11,12])
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">Ogil JJang</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">Ogil JJang</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -69,22 +73,24 @@ function App() {
             </div>
           </div>
 
+           {/* 더보기 버튼 */}
           <button className="btn btn-danger" onClick={ ()=>{
               axios.get('https://codingapple1.github.io/shop/data2.json')
               .then((res)=>{ 
                 console.log('성공')
                 console.log(res) 
-                let tempShoes = [...shoes]
-                let pushShoes = tempShoes.concat(res.data)
+                let tempShoes = [...shoes, ...res.data]
+                // let pushShoes = tempShoes.concat(res.data)
 
-                pushShoes.filter((item) => {
+                tempShoes.filter((item,idx) => {
                   if (item.src == null || item.src == undefined) {
-                    item.src = 'https://codingapple1.github.io/shop/shoes1.jpg'
+                    picNumUpdate(picNum++)
+                    item.src = 'https://codingapple1.github.io/shop/shoes'+ picNum +'.jpg'
                   }
                   return item
                 })
 
-                shoesUpdate(pushShoes)
+                shoesUpdate(tempShoes)
               })
               .catch(()=>{
                 console.log('실패') })
@@ -97,7 +103,7 @@ function App() {
         {/* :작명 */}
         {/* /:id/:id/:id 가능 */}
         <Route path="/detail/:id">
-          <Detail shoes={shoes}/>
+          <Detail shoes={shoes} stock={stock} stockUpdate={stockUpdate}/>
         </Route> 
         {/* <Route path="/" component={Detail}></Route> */}
 
@@ -111,14 +117,15 @@ function App() {
   );
 }
 
+
 function SHOESCOMPONENT (param,idx) {
   return (
-      <div className="col-md-4">
-        <img src={param.shoes.src} width="100%"></img>
-        <h4>{param.shoes.title} </h4>
-        <p>{param.shoes.content} </p>
-        <p>{param.shoes.price}</p>
-      </div>
+    <div className="col-md-4">
+      <img src={param.shoes.src} width="100%"></img>
+      <h4>{param.shoes.title} </h4>
+      <p>{param.shoes.content} </p>
+      <p>{param.shoes.price}</p>
+    </div>
   )
 };
 
