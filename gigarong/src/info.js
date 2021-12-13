@@ -1,4 +1,6 @@
-function info (param) {
+// 신발 정보 해야함
+
+function  (param) {
     return (
         <div></div>
     )
