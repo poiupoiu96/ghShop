@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import { useHistory , useParams} from 'react-router';
 import Styled from 'styled-components';
 // import './detail.scss';
-
+import {productContext} from './App.js'
 /*****************************
  *  CSS 방법 2개
  *  npm install ~~ 할 때 잘 안깔리는 것들은 버전확인...
@@ -25,11 +25,13 @@ let BoxDetail = Styled.h4`
 // 안깔림.. 
 // TODO 주말에 다시시도
 
+
 function Detail(param){
   
   let [compoDisabled, compoDisabledUpdate] = useState(true) 
   console.log('params', param)
-
+  let test111 = useContext(productContext)
+  console.log('test111',test111)
   /********************************************
    *  useEffect는 몇개씩 선언 가능
    *  mount, udate시
@@ -110,6 +112,7 @@ function Detail(param){
         </div>
       </div>
     </div>  
+    
   )
 }
 

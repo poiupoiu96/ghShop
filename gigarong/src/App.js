@@ -4,11 +4,14 @@ import './App.css';
 import { Navbar,Container,Nav,NavDropdown,Button,Carousel } from 'react-bootstrap';
 import data from './data.js';
 import backImg from './background.jpg';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Detail from './detail.js';
-import axios from 'axios'
+import axios from 'axios';
 
-import { Link, Route, Switch } from 'react-router-dom'
+import { Link, Route, Switch } from 'react-router-dom';
+
+export let productContext = React.createContext();
+
 
 function App() {
 
@@ -63,16 +66,18 @@ function App() {
           <br/>
           
           <div className="container">
-            <div className="row">
-              {/* 위에 반복 container 반복문으로 컴포넌트 생성 */}
-              {
-                shoes.map((item, idx)=> {
-                  return <SHOESCOMPONENT shoes={item} idx={idx} key={idx}></SHOESCOMPONENT>
-                })
-              }
-            </div>
+            {/* props로 계속 넘겨받고 싶지 않고 복잡할 때 */}
+            <productContext.Provider value={shoes[0].id}>
+              <div className="row">
+                {/* 위에 반복 container 반복문으로 컴포넌트 생성 */}
+                {
+                  shoes.map((item, idx)=> {
+                    return <SHOESCOMPONENT shoes={item} idx={idx} key={idx}></SHOESCOMPONENT>
+                  })
+                }
+              </div>
+            </productContext.Provider>
           </div>
-
            {/* 더보기 버튼 */}
           <button className="btn btn-danger" onClick={ ()=>{
               axios.get('https://codingapple1.github.io/shop/data2.json')
@@ -94,24 +99,30 @@ function App() {
               })
               .catch(()=>{
                 console.log('실패') })
-          }}> 더보기 </button>
-
+          }}> 더보기 </button> 
         </Route>
         
 
         {/* :id란 detail/ 뒤에 아무거나 와도 보여줘라 */}
         {/* :작명 */}
         {/* /:id/:id/:id 가능 */}
-        <Route path="/detail/:id">
-          <Detail shoes={shoes} stock={stock} stockUpdate={stockUpdate}/>
-        </Route> 
         {/* <Route path="/" component={Detail}></Route> */}
+        {/* <Route path="/detail/:id">
+          <Detail shoes={shoes} stock={stock} stockUpdate={stockUpdate}/>
+        </Route>  */}
+
+        {/* createContext로 전달하고 싶을 때 */}
+        <Route path="/detail/:id">
+          <productContext.Provider value={stock}>
+            <Detail shoes={shoes} stock={stock} stockUpdate={stockUpdate}/>
+          </productContext.Provider>
+        </Route> 
+
 
         {/* /'아무문자'써도 라는 경로를 의미 */}
         <Route path="/:id">
-              <div>아무거나 적어도 이게 보임</div>
+          <div>아무거나 적어도 이게 보임</div>
         </Route>
-
       </Switch>
     </div>
   );
@@ -119,15 +130,25 @@ function App() {
 
 
 function SHOESCOMPONENT (param,idx) {
+  // productContext.Provider
+  let temp = useContext(productContext)
+  console.log('temp===========', temp)
   return (
     <div className="col-md-4">
       <img src={param.shoes.src} width="100%"></img>
       <h4>{param.shoes.title} </h4>
       <p>{param.shoes.content} </p>
       <p>{param.shoes.price}</p>
+      <TEST></TEST>
     </div>
   )
 };
+
+function TEST () {
+  let test = useContext(productContext)
+  return (<p>useContext 테스트 : {test}</p>)
+}
+
 
 // function Detail(){
 //   return (
