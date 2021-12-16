@@ -17,3 +17,16 @@ div.container {
         color: green
     }
 } */
+
+.wow {
+    color: green;
+}
+.wow-enter{
+    opacity: 0;
+    color: red
+}
+
+.wow-enter-active {
+    opacity: 1;
+    TRANSITION: all 2000ms;
+}   

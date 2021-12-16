@@ -3,6 +3,10 @@ import { useHistory , useParams} from 'react-router';
 import Styled from 'styled-components';
 // import './detail.scss';
 import {productContext} from './App.js'
+import { Nav } from 'react-bootstrap';
+import {CSSTransition} from "react-transition-group";
+import  './detail.css'
+
 /*****************************
  *  CSS 방법 2개
  *  npm install ~~ 할 때 잘 안깔리는 것들은 버전확인...
@@ -32,6 +36,9 @@ function Detail(param){
   console.log('params', param)
   let test111 = useContext(productContext)
   console.log('test111',test111)
+
+  let [tabNum, tabNumUpdate] = useState(0)
+  let [switchAni, switchAniUpdate] = useState(false)
   /********************************************
    *  useEffect는 몇개씩 선언 가능
    *  mount, udate시
@@ -91,6 +98,26 @@ function Detail(param){
           </Box> : null 
       }
 
+      {/* TAB */}
+      <Nav variant="tabs" defaultActiveKey="link-0">
+        <Nav.Item>
+          <Nav.Link eventKey="link-0" onClick={ ()=>{ switchAniUpdate(false); tabNumUpdate(0)}}>Active</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1" onClick={ ()=>{ switchAniUpdate(false); tabNumUpdate(1)}}>Option 2</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="disabled" disabled>
+            Disabled
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+
+      {/* in={} true일 경우만 실행 */}
+      <CSSTransition in={switchAni} className="wow" timeout={500}>
+        <TabContent tabNum={tabNum} switchAniUpdate={switchAniUpdate}/>
+      </CSSTransition>
+
       <div className="row">
         <div className="col-md-6">
           <img src={temp.src} width="100%" />
@@ -123,4 +150,16 @@ function STOCKDIVINFO (param) {
   )
 }
 
+function TabContent (param) {
+  useEffect(()=>{
+    param.switchAniUpdate(true)
+  })
+  if (param.tabNum === 0) {
+    return <div> 상품설명 </div>
+  } else if (param.tabNum === 1) {
+    return <div> 배송정보 </div>
+  } else {
+    return <div> 기본 값</div>
+  }
+}
 export default Detail;

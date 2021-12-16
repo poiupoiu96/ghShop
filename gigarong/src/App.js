@@ -5,7 +5,7 @@ import { Navbar,Container,Nav,NavDropdown,Button,Carousel } from 'react-bootstra
 import data from './data.js';
 import backImg from './background.jpg';
 import React, { useContext, useState } from 'react';
-import Detail from './detail.js';
+import Detail from './Detail.js';
 import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';

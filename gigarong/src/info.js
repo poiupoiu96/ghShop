@@ -1,6 +1,6 @@
 // 신발 정보 해야함
 
-function  (param) {
+function  shoeInfo() {
     return (
         <div></div>
     )
