@@ -37,13 +37,14 @@ let store = createStore(reducer);
 
 // state = 초기값
 function reducer(state = tempData, action ) {
+  console.log('action',action)
   if (action.type === 'quanAdd') {
     let copyData = [...state]
-    copyData[0].quan++
+    copyData[action.idx].quan++
     return copyData
   } else if (action.type === 'quanMin') {
     let copyData = [...state]
-    copyData[0].quan--
+    copyData[action.idx].quan--
     return copyData
   } else {
     return state

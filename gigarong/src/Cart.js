@@ -26,8 +26,8 @@ function Cart (props) {
                                 <td>{ item.id }</td>
                                 <td>{ item.name }{idx}</td>
                                 <td>{ item.quan }</td>
-                                <td> <button onClick={()=>{ props.dispatch({type: 'quanAdd'}) }}> + </button> &nbsp;
-                                <button onClick={()=>{ props.dispatch({type: 'quanMin'}) }}> - </button></td>
+                                <td> <button onClick={()=>{ props.dispatch({type: 'quanAdd', idx : idx}) }}> + </button> &nbsp;
+                                <button onClick={()=>{ props.dispatch({type: 'quanMin', idx : idx}) }}> - </button></td>
                             </tr>
                         )
                     })
