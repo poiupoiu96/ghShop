@@ -10,6 +10,8 @@ import axios from 'axios';
 
 import { Link, Route, Switch } from 'react-router-dom';
 
+import Cart from './Cart.js';
+
 export let productContext = React.createContext();
 
 
@@ -117,6 +119,10 @@ function App() {
             <Detail shoes={shoes} stock={stock} stockUpdate={stockUpdate}/>
           </productContext.Provider>
         </Route> 
+
+        <Route path="/:id">
+          <Cart></Cart>
+        </Route>
 
 
         {/* /'아무문자'써도 라는 경로를 의미 */}
