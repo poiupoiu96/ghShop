@@ -8,7 +8,7 @@ import {BrowserRouter} from 'react-router-dom';
 // import {HashRouter} from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux'
+import { combineReducers, createStore } from 'redux'
 
 
 /**
@@ -16,6 +16,9 @@ import { createStore } from 'redux'
 * 1. 복잡한 props 전송이 필요없음
 *    모든 컴포넌트가 직접 데이터 꺼내쓸 수 있음
 * 2. state 데이터 관리가능 (수정방법을 미리 정의)
+
+    * 여러화면에서 쓸때만 필요
+      개별이거나 데이터양이 적을땐 배보다 배꼽이 큰 상황.
 */
 
 /**
@@ -33,9 +36,8 @@ let tempData = [
   { id: 'pink', name: '테스트', quan: 53}
 ];
 
-let store = createStore(reducer);
-
 // state = 초기값
+// 데이터수정방법
 function reducer(state = tempData, action ) {
   console.log('action',action)
   if (action.type === 'quanAdd') {
@@ -50,6 +52,11 @@ function reducer(state = tempData, action ) {
     return state
   }
 }
+
+// reducer를 여러개 쓰고 싶다면
+// let store = createStore(combineReducers({reducer, reducer2,reducer3}));
+let store = createStore(reducer);
+
 
 ReactDOM.render(
   <React.StrictMode>
