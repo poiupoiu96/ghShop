@@ -11,12 +11,13 @@ import axios from 'axios';
 import { Link, Route, Switch } from 'react-router-dom';
 
 import Cart from './Cart.js';
+import { connect } from 'react-redux';
 
 export let productContext = React.createContext();
 
 
-function App() {
-
+function App(aaa) {
+  console.log('aaa',aaa)
   let [shoes, shoesUpdate] = useState(data) // 신발 목록
   let [flag, flagUpdate] = useState(true) // 컴포넌트 flag값
   let [picNum, picNumUpdate] = useState(3)
@@ -174,4 +175,27 @@ function TEST () {
 //   </div>  
 //   )
 // };
-export default App;
+
+// index에서 reducer test
+function getCreateStore(state) {
+  return {
+      // name: state[0].name
+      state: state
+  }
+}
+
+// function TableDiv (param,idx) { 
+//     console.log(param)
+//     return (
+//         <tr key={param.idx}>
+//             <td>{param.idx}</td>
+//             <td>{ param.param.id }</td>
+//             <td>{ param.param.name }{param.idx}</td>
+//             <td>{ param.param.quan }</td>
+//             <td> <button onClick={()=>{ param.param.dispatch({type: 'quanUpdate'}) }}> + </button></td>
+//         </tr>
+//     )
+// }
+
+export default connect(getCreateStore)(App)
+// export default App;
