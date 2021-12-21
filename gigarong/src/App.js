@@ -82,6 +82,7 @@ function App() {
           </div>
            {/* 더보기 버튼 */}
           <button className="btn btn-danger" onClick={ ()=>{
+            // 링크 바꿔서 테스트
               axios.get('https://codingapple1.github.io/shop/data2.json')
               .then((res)=>{ 
                 console.log('성공')
