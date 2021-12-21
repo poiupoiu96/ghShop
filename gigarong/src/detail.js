@@ -6,6 +6,7 @@ import {productContext} from './App.js'
 import { Nav } from 'react-bootstrap';
 import {CSSTransition} from "react-transition-group";
 import  './detail.css'
+import { connect } from 'react-redux';
 
 /*****************************
  *  CSS 방법 2개
@@ -128,7 +129,11 @@ function Detail(param){
           <p>{temp.price}</p>
           <STOCKDIVINFO param={param.stock}></STOCKDIVINFO>
           <br/>
-          <button className="btn btn-danger" onClick={ ()=> { param.stockUpdate([9,9,9])}}>주문하기</button>&nbsp;
+          <button className="btn btn-danger" onClick={ ()=> { 
+            param.stockUpdate([9,9,9]);
+            param.dispatch({type: 'detailAdd', payload: { id: 'yellow', name: temp.content, quan: 1}  });
+            history.push('/cart');
+          }}>주문하기</button>&nbsp;
           <button className="btn btn-primary" onClick={ ()=> {
               // history.goBack() // 뒤로가기
               history.push('/') // 경로
@@ -162,4 +167,13 @@ function TabContent (param) {
     return <div> 기본 값</div>
   }
 }
-export default Detail;
+
+function getCreateStore(state) {
+  return {
+      // name: state[0].name
+      state: state
+  }
+}
+ 
+export default connect(getCreateStore)(Detail)
+// export default Detail;

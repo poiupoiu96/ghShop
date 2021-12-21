@@ -40,11 +40,28 @@ let tempData = [
 // 데이터수정방법
 function reducer(state = tempData, action ) {
   console.log('action',action)
-  if (action.type === 'quanAdd') {
+
+  if (action.type === 'detailAdd') { // Detail.js 항목추가
+    
+    let copy = [...state]
+    let flag = false
+
+    copy.forEach((item) => {
+      if (item.id === action.payload.id) {
+        item.quan++
+        flag = true
+      }
+    })
+
+    if (!flag) {
+      copy.push(action.payload) // 추가 할 데이터
+    }
+    return copy
+  } else if (action.type === 'quanAdd') { // Cart.js
     let copyData = [...state]
     copyData[action.idx].quan++
     return copyData
-  } else if (action.type === 'quanMin') {
+  } else if (action.type === 'quanMin') { // Cart.js
     let copyData = [...state]
     copyData[action.idx].quan--
     return copyData
