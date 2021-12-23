@@ -8,7 +8,7 @@ import React, { useContext, useState } from 'react';
 import Detail from './Detail.js';
 import axios from 'axios';
 
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
 import Cart from './Cart.js';
 import { connect } from 'react-redux';
@@ -140,9 +140,11 @@ function App(aaa) {
 function SHOESCOMPONENT (param,idx) {
   // productContext.Provider
   let temp = useContext(productContext)
-  console.log('temp===========', temp)
+  console.log('temp===========', param)
+
+  let history = useHistory()
   return (
-    <div className="col-md-4">
+    <div className="col-md-4" onClick={ () => { history.push('/detail/' + param.idx) }}> 
       <img src={param.shoes.src} width="100%"></img>
       <h4>{param.shoes.title} </h4>
       <p>{param.shoes.content} </p>

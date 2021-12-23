@@ -131,7 +131,7 @@ function Detail(param){
           <br/>
           <button className="btn btn-danger" onClick={ ()=> { 
             param.stockUpdate([9,9,9]);
-            param.dispatch({type: 'detailAdd', payload: { id: 'yellow', name: temp.content, quan: 1}  });
+            param.dispatch({type: 'detailAdd', payload: { id: temp.title, name: temp.content, quan: 1}  });
             history.push('/cart');
           }}>주문하기</button>&nbsp;
           <button className="btn btn-primary" onClick={ ()=> {
@@ -159,13 +159,25 @@ function TabContent (param) {
   useEffect(()=>{
     param.switchAniUpdate(true)
   })
-  if (param.tabNum === 0) {
-    return <div> 상품설명 </div>
-  } else if (param.tabNum === 1) {
-    return <div> 배송정보 </div>
-  } else {
-    return <div> 기본 값</div>
+  // if (param.tabNum === 0) {
+  //   return <div> 상품설명 </div>
+  // } else if (param.tabNum === 1) {
+  //   return <div> 배송정보 </div>
+  // } else {
+  //   return <div> 기본 값</div>
+  // }
+  let test = {      
+      info: <div>info!!</div>,
+      shipping: <div>shipping!!</div>,
+      default: <div>default!!</div>
   }
+  return (
+    <div>
+      {
+        test[test]
+      }
+    </div>
+  )
 }
 
 function getCreateStore(state) {
