@@ -166,15 +166,34 @@ function TabContent (param) {
   // } else {
   //   return <div> 기본 값</div>
   // }
-  let test = {      
-      info: <div>info!!</div>,
-      shipping: <div>shipping!!</div>,
-      default: <div>default!!</div>
-  }
+
+  // 간지나게 오브젝트를 변수로 저장해놓고
+  // var 탭UI = { 
+  //   info : <p>상품정보</p>,
+  //   shipping : <p>배송관련</p>,
+  //   refund : <p>환불약관</p>
+  // }
+  
+  // function Component() {
+  //   var 현재상태 = 'info';
+  //   return (
+  //     <div>
+  //       {
+  //         탭UI[현재상태]
+  //       }
+  //     </div>
+  //   )
+  // } 
+
+  var state = 'shipping'
   return (
     <div>
       {
-        test[test]
+        {
+          info: <div>info!!</div>,
+          shipping: <div>shipping!!</div>,
+          default: <div>default!!</div>
+        }[state]
       }
     </div>
   )
