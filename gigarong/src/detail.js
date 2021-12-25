@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState, useContext, memo} from 'react';
 import { useHistory , useParams} from 'react-router';
 import Styled from 'styled-components';
 // import './detail.scss';
@@ -31,8 +31,7 @@ let BoxDetail = Styled.h4`
 // TODO 주말에 다시시도
 
 
-function Detail(param){
-  
+function Detail(param){ 
   let [compoDisabled, compoDisabledUpdate] = useState(true) 
   console.log('params', param)
   let test111 = useContext(productContext)
