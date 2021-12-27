@@ -84,6 +84,21 @@ function Detail(param){
   }
   console.log('333333333')
   
+  // db없이 localStorage에 저장. ( 봤던 페이지 저장 )
+  useEffect(()=> {
+    var arr = localStorage.getItem('preData')
+    if ( arr == null ) {
+      arr = []
+    } else {
+      arr = JSON.parse(arr)
+    }
+    // arr.push(temp.id)
+    console.log('arr',arr.id)
+    // arr = new Set(arr) // 중복 제거
+    // arr = [...arr]
+    // localStorage.setItem('preData', JSON.stringify(arr))
+  }, [])
+
   return  (
     <div className="container" >
        {/* {compoDisabled &&
