@@ -2,9 +2,9 @@ import React, {useEffect, useState, useContext, memo} from 'react';
 import { useHistory , useParams} from 'react-router';
 import Styled from 'styled-components';
 // import './detail.scss';
-import {productContext} from './App.js'
+import { productContext } from './App.js'
 import { Nav } from 'react-bootstrap';
-import {CSSTransition} from "react-transition-group";
+import { CSSTransition } from "react-transition-group";
 import  './detail.css'
 import { connect } from 'react-redux';
 

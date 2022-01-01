@@ -7,6 +7,8 @@ import backImg from './background.jpg';
 import React, { useContext, useEffect, useState } from 'react';
 import Detail from './Detail.js';
 import axios from 'axios';
+ 
+import Login from './Login.js';
 
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
@@ -21,6 +23,8 @@ function App(aaa) {
   let [shoes, shoesUpdate] = useState(data) // 신발 목록
   let [flag, flagUpdate] = useState(true) // 컴포넌트 flag값
   let [picNum, picNumUpdate] = useState(3)
+
+  let [loginText, loginTextUpdate] = useState('로그인')
 
   let [storage, storageUpdate] = useState([])
 
@@ -44,10 +48,23 @@ function App(aaa) {
     if ( fn_isEmpty(localStorage.getItem('preData')) ) { // localStorage에 데이터가 없을 때
       return <div><p>데이터가 없습니다.</p></div>
     } else { // 데이터가 있을 때
+      let shoes1 = []
       let getLocalShoes = JSON.parse(localStorage.getItem('preData'))  
-      console.log('getLocalShoes',getLocalShoes)
-      // return <SHOESCOMPONENT shoes={getLocalShoes} idx={'1'} key={'1'}></SHOESCOMPONENT>  
-      return 'dd'
+      getLocalShoes = [... new Set(getLocalShoes)] 
+      for (let i = 0 ; i < shoes.length; i++) {
+        for ( let k = 0; k < getLocalShoes.length; k++) {
+          if (shoes[i].id === getLocalShoes[k]) {
+            shoes1.push(shoes[i])
+          }
+        }
+      }
+      console.log('shoesView',shoes1)
+      return ( 
+        shoes1.map((item, idx) => {
+          console.log('********************', item);
+          <SHOESCOMPONENT shoes={item} idx={idx} key={idx}></SHOESCOMPONENT> 
+        })
+      )
     }
   }
 
@@ -58,11 +75,6 @@ function App(aaa) {
    *       로그인,로그아웃,정보
    * 
    */
-  
-
-  useEffect(() => {
-    fn_preDataView()
-  }, [])
 
   return (
     <div className="App">
@@ -73,8 +85,9 @@ function App(aaa) {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               {/* <Nav.Link> <Link to="/">Home</Link> </Nav.Link> */}
-              <Nav.Link as={Link} to="/">Home </Nav.Link>
+              {/* <Nav.Link as={Link} to="/">Home </Nav.Link> */}
               <Nav.Link as={Link} to="/detail">Detail </Nav.Link>
+              <Nav.Link as={Link} to="/Login">{ loginText } </Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -113,8 +126,7 @@ function App(aaa) {
               <Accordion.Header>최근 본 상품</Accordion.Header>
               <Accordion.Body> 
                   {
-                    fn_preDataView()
-                    // 여기에 html
+                    fn_preDataView() 
                   } 
               </Accordion.Body>
             </Accordion.Item>
@@ -168,8 +180,12 @@ function App(aaa) {
               .catch(()=>{
                 console.log('실패') })
           }}> 더보기 </button> 
+          <br />
+          <br />
+          <br />
+
         </Route>
-        
+      
 
         {/* :id란 detail/ 뒤에 아무거나 와도 보여줘라 */}
         {/* :작명 */}
@@ -179,6 +195,7 @@ function App(aaa) {
           <Detail shoes={shoes} stock={stock} stockUpdate={stockUpdate}/>
         </Route>  */}
 
+
         {/* createContext로 전달하고 싶을 때 */}
         <Route path="/detail/:id">
           <productContext.Provider value={stock}>
@@ -186,16 +203,16 @@ function App(aaa) {
           </productContext.Provider>
         </Route> 
 
-        <Route path="/:id">
-          <Cart></Cart>
+        <Route path="/Login">
+          <Login></Login>
         </Route>
-
 
         {/* /'아무문자'써도 라는 경로를 의미 */}
         <Route path="/:id">
           <div>아무거나 적어도 이게 보임</div>
         </Route>
       </Switch>
+ 
     </div>
   );
 }
@@ -223,6 +240,7 @@ function SHOESCOMPONENT (param,idx) {
   }
 
   let history = useHistory()
+  console.log('12345678890')
   return (
     <div className="col-md-4" onClick={ () => { fn_detailPageMove(param.idx) }}> 
       <img src={param.shoes.src} width="100%"></img>
