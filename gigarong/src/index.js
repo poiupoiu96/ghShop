@@ -25,6 +25,7 @@ import { combineReducers, createStore } from 'redux'
  * Redux쓰는 방법
  * 1. <Provider>로 원하는 곳 감싸기
  * 2. createStore에 담아서 넘기기
+ * 3.
  */
 
 let tempData = [ 
