@@ -79,9 +79,9 @@ function Detail(param){
   let temp = param.shoes.find( item => item.id == id);
   console.log('temp',temp)
 
-  function test() {
-    alert('11')
-  }
+  // function test() {
+  //   alert('11')
+  // }
   console.log('333333333')
   
   // db없이 localStorage에 저장. ( 봤던 페이지 저장 )
@@ -154,7 +154,7 @@ function Detail(param){
           }}>
           뒤로가기
           </button>&nbsp;
-          <button className="btn btn-success" onClick={test}>alert</button>
+          {/* <button className="btn btn-success" onClick={test}>alert</button> */}
         </div>
       </div>
     </div>  
@@ -198,8 +198,8 @@ function TabContent (param) {
   //     </div>
   //   )
   // } 
-
-  var state = 'shipping'
+  console.log('tabNum',param)
+  let state = param.tabNum === 0 ? 'shipping' : 'info'
   return (
     <div>
       {

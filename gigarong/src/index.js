@@ -77,13 +77,14 @@ let store = createStore(reducer);
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  // 자꾸  findDOMNode 에러 떠서 잠시 주석
+  // <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
         <App />
       </Provider>
-    </BrowserRouter>
-  </React.StrictMode>,
+    </BrowserRouter>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
