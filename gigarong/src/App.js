@@ -5,7 +5,7 @@ import { Navbar,Container,Nav,NavDropdown,Button,Carousel,Accordion } from 'reac
 import data from './data.js';
 import backImg from './background.jpg';
 import React, { useContext, useEffect, useState } from 'react';
-import Detail from './Detail.js';
+import Detail from './detail.js';
 import axios from 'axios';
  
 import Login from './Login.js';
