@@ -82,7 +82,7 @@ function Login () {
                     </Form.Control.Feedback>
                 </InputGroup>
             </Form.Group>
-            </Row>
+            </Row>   
             <Form.Group className="mb-3">
             <Form.Check
                 required
