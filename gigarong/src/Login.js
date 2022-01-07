@@ -9,7 +9,7 @@ function Login () {
     let [validated, setValidated] = useState(false) // form validation Check
     let [userInfo, setUserInfo] = useState( {id: '', pw: '', email: '' } )
 
-
+    // 로컬 스토리지에 저장해서 로그인 로그아웃 사용해보기.
     function fn_setId() {
 
     }

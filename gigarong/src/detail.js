@@ -30,6 +30,7 @@ let BoxDetail = Styled.h4`
 // 안깔림.. 
 // TODO 주말에 다시시도
 
+// TODO 주문하기 누르면 로그인창 ㄱㄱ 로그인이 되어있으면 주문 페이지 ㄱ ㄱ
 
 function Detail(param){ 
   let [compoDisabled, compoDisabledUpdate] = useState(true) 
