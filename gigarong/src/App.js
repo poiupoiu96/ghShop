@@ -9,6 +9,8 @@ import Detail from './Detail.js';
 import axios from 'axios';
  
 import Login from './Login.js';
+import SignUp from './SignUp.js';
+
 
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
@@ -205,6 +207,10 @@ function App(aaa) {
 
         <Route path="/Login">
           <Login></Login>
+        </Route>
+
+        <Route path="/SignUp">
+          <SignUp></SignUp>
         </Route>
 
         {/* /'아무문자'써도 라는 경로를 의미 */}

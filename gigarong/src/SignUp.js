@@ -66,6 +66,9 @@ function Login () {
                 defaultValue=""
                 />
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                        비밀번호를 확인하세요.
+                </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="4" controlId="validationCustomUsername">
             <br />
@@ -98,7 +101,7 @@ function Login () {
             <Form.Check
                 required
                 label=" [필수] 모두 동의합니다."
-                feedback="체크해주세요."
+                // feedback="체크해주세요."
                 feedbackType="invalid"
             />
             </Form.Group>

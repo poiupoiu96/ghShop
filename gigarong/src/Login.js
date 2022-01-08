@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { InputGroup, FormControl, Form, Row, Col, Button} from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 
 // email인증 api 연동
@@ -8,10 +9,12 @@ function Login () {
     
     let [validated, setValidated] = useState(false) // form validation Check
     let [userInfo, setUserInfo] = useState( {id: '', pw: ''} )
+    let [msg, setMsg] = useState('안녕하세요 :D')
+    let history = useHistory()
 
     useEffect( ()=>{
         let temp = JSON.stringify(userInfo)
-        localStorage.setItem('loginInfo',temp)
+        localStorage.setItem('loginInfo',JSON.stringify({id: 'gksrlfgud', pw: 'a123'}))
     }, []);
 
     // 빈값, 빈배열, 빈객체
@@ -49,50 +52,103 @@ function Login () {
         console.log(userInfo)
     }
 
+    // 로그인 버튼
+    function fn_loginSubmit () {
+        let flag = false
+        let loId = userInfo.id
+        let loPw = userInfo.pw
 
-    const handleSubmit = (event) => {
-      const form = event.currentTarget
-      if (form.checkValidity() === false) { // vaildation check
-        // react에서는 false라해서 멈추는게 아님 밑에 함수들로 한번 더 막아줘야함
-        event.preventDefault()
-        event.stopPropagation()
-      }
+        let store = JSON.parse(localStorage.getItem('loginInfo'))
+        console.log('userInfo',userInfo)
+        if (fn_isEmpty(loId)) {
+            setMsg('ID를 정확히 입력해주세요.') 
+            flag = true
+        } else if(fn_isEmpty(loPw)) {
+            setMsg('비밀번호를 정확히 입력해주세요.') 
+            flag = true
+        }
+
+        if (flag) { 
+            return false
+        } else {
+            if (fn_isEmpty(store)) {
+                alert('신규 가입 하시겠습니까?')
+                return false
+            }
+            if (store.id !== loId) {
+                alert('일치하는 id가 없습니다.')
+                return false
+            } else if (store.pw !== loPw) {
+                alert('비밀번호를 확인해주세요.')
+                return false
+            }
+        }
+
+        // 로그인 성공
+        history.push('./')
+
+    }
+
+
+    // const handleSubmit = (event) => {
+    //   const form = event.currentTarget
+    //   if (form.checkValidity() === false) { // vaildation check
+    //     // react에서는 false라해서 멈추는게 아님 밑에 함수들로 한번 더 막아줘야함
+    //     event.preventDefault()
+    //     event.stopPropagation()
+    //   }
       
-      // validation에 어긋나는게 없다면 true 상태로 update
-      setValidated(true)
-    }; 
+    //   // validation에 어긋나는게 없다면 true 상태로 update
+    //   setValidated(true)
+    // }; 
     
     function LOGINFORM () {
         return (
-        <Form>
-            <Row className="mb-3">
-            <Form.Group as={Col} md="4" controlId="validationCustom01">
+        <div>
+            <InputGroup className="mb-2">
+                <InputGroup.Text id="inputGroup-sizing-sm"> ID </InputGroup.Text>
+                <FormControl aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="ID를 입력하세요." onChange={ (e) => {fn_setId(e.target.value, 'id')}}/>
+            </InputGroup>
             <br />
-                <Form.Label> 아이디 </Form.Label>
-                <Form.Control
-                required
-                type="text"
-                placeholder="ID를 입력하세요."
-                onChange={ (e) => {fn_setId(e.target.value, 'id')}}
-                defaultValue=""
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <br />
-                <Form.Label>비밀번호</Form.Label>
-                <Form.Control
-                required
-                type="text"
-                placeholder="password를 입력하세요." 
-                onChange={ (e) => {fn_setId(e.target.value, 'pw')}}
-                defaultValue=""
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-            </Row>
-            <Button type="submit" onClick={ (e) => {fn_loginSubmit(e)}}>로그인</Button>
-        </Form>
+            <InputGroup className="mb-3">
+                <InputGroup.Text id="inputGroup-sizing-sm"> PW </InputGroup.Text>
+                <FormControl aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="password를 입력하세요." onChange={ (e) => {fn_setId(e.target.value, 'pw')}}/>
+            </InputGroup>
+            <div>
+                <p>{ msg }</p>
+            </div>
+            <br /> 
+            <Button onClick={ fn_loginSubmit }>로그인</Button> &nbsp;
+            <Button variant="warning" onClick={ () => {history.push('/SignUp')}}>회원가입</Button>
+            {/* <Form>
+                <Row className="mb-3">
+                <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <br />
+                    <Form.Label> 아이디 </Form.Label>
+                    <Form.Control
+                    required
+                    type="text"
+                    placeholder="ID를 입력하세요."
+                    onChange={ (e) => {fn_setId(e.target.value, 'id')}}
+                    defaultValue=""
+                    /> 
+                </Form.Group>
+                <Form.Group as={Col} md="4" controlId="validationCustom02">
+                <br />
+                    <Form.Label>비밀번호</Form.Label>
+                    <Form.Control
+                    required
+                    type="text"
+                    placeholder="password를 입력하세요." 
+                    onChange={ (e) => {fn_setId(e.target.value, 'pw')}}
+                    defaultValue=""
+                    /> 
+                </Form.Group>
+                </Row>
+                <Button onClick={ fn_loginSubmit }>로그인</Button>
+            </Form> */}
+
+        </div>
         )
     }
 
