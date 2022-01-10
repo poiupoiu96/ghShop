@@ -62,19 +62,23 @@ function App(aaa) {
       }
       console.log('shoesView',shoes1)
       return ( 
-        shoes1.map((item, idx) => {
-          console.log('********************', item);
-          <SHOESCOMPONENT shoes={item} idx={idx} key={idx}></SHOESCOMPONENT> 
-        })
+          shoes1.map((item, idx) => {
+            console.log('********************', item);
+            return <SHOESCOMPONENT shoes={item} idx={idx} key={idx}></SHOESCOMPONENT> 
+          })
       )
     }
   }
 
-  /** TODO 한번본상품, 여러본 본상품 구현
+  useEffect(() => {
+    fn_preDataView()
+  })
+
+  /** TODO 한번본상품, 여러본 본상품 구현 111111111
    *       팝업띄워보기 (세일하는, 신상품 등등)
    *       사이드바 (채팅기능(1:1문의), 맨위로, 맨아래로)
    *       간이결제
-   *       로그인,로그아웃,정보
+   *       로그인11111,로그아웃,정보
    * 
    */
 
@@ -207,6 +211,10 @@ function App(aaa) {
 
         <Route path="/Login">
           <Login></Login>
+        </Route>
+
+        <Route path="/Cart">
+          <Cart></Cart>
         </Route>
 
         <Route path="/SignUp">
