@@ -85,6 +85,8 @@ function Login () {
         }
 
         // 로그인 성공
+        
+        localStorage.setItem('loginFlag', '1')
         history.push('./')
 
     }
