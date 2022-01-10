@@ -29,13 +29,13 @@ import { combineReducers, createStore } from 'redux'
  */
 
 let tempData = [ 
-  { id: 'balck', name: '테스트', quan: 2},
+  { id: 'black', name: '테스트', quan: 2},
   { id: 'white', name: '테스트', quan: 6},
   { id: 'green', name: '테스트', quan: 1},
   { id: 'blue', name: '테스트', quan: 9},
   { id: 'yellow', name: '테스트', quan: 122},
   { id: 'pink', name: '테스트', quan: 53}
-];
+];                                                                                                              
 
 // state = 초기값
 // 데이터수정방법
