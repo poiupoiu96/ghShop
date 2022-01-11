@@ -27,8 +27,9 @@ function App(aaa) {
   let [picNum, picNumUpdate] = useState(3)
 
   let [loginText, loginTextUpdate] = useState('로그인')
-
   let [storage, storageUpdate] = useState([])
+
+  let [chngFlag, setChngFlag] = useState(false)
 
   console.log('App.js ~~')
 
@@ -46,35 +47,64 @@ function App(aaa) {
 
   // 최근 봤던 상품 표시.
   function fn_preDataView () {
-    
-    if ( fn_isEmpty(localStorage.getItem('preData')) ) { // localStorage에 데이터가 없을 때
-      return <div><p>데이터가 없습니다.</p></div>
-    } else { // 데이터가 있을 때
-      let shoes1 = []
-      let getLocalShoes = JSON.parse(localStorage.getItem('preData'))  
-      getLocalShoes = [... new Set(getLocalShoes)] 
-      for (let i = 0 ; i < shoes.length; i++) {
-        for ( let k = 0; k < getLocalShoes.length; k++) {
-          if (shoes[i].id === getLocalShoes[k]) {
-            shoes1.push(shoes[i])
+      if ( fn_isEmpty(localStorage.getItem('preData')) ) { // localStorage에 데이터가 없을 때
+        return <div><p>데이터가 없습니다.</p></div>
+      } else { // 데이터가 있을 때
+        let shoes1 = []
+        let getLocalShoes = JSON.parse(localStorage.getItem('preData'))  
+        getLocalShoes = [... new Set(getLocalShoes)] 
+        for (let i = 0 ; i < shoes.length; i++) {
+          for ( let k = 0; k < getLocalShoes.length; k++) {
+            if (shoes[i].id === getLocalShoes[k]) {
+              shoes1.push(shoes[i])
+            }
           }
         }
+        console.log('shoesView',shoes1)
+        // setChngFlag(false)
+        return ( 
+            shoes1.map((item, idx) => {
+              console.log('********************', item);
+              return <SHOESCOMPONENT shoes={item} idx={idx} setChngFlag={setChngFlag}  key={idx}></SHOESCOMPONENT> 
+            })
+        )
       }
-      console.log('shoesView',shoes1)
-      return ( 
-          shoes1.map((item, idx) => {
-            console.log('********************', item);
-            return <SHOESCOMPONENT shoes={item} idx={idx} key={idx}></SHOESCOMPONENT> 
-          })
-      )
     }
-  }
+    useEffect(() => {
+      fn_preDataView()
+    }, [chngFlag])
+    // 최근 봤던 상품 표시 끝
 
-  useEffect(() => {
-    fn_preDataView()
-  })
+    // 자주본상품
+    function fn_morePreDataView () {
+      let pData = localStorage.getItem('preData')
+      if ( fn_isEmpty(pData)) { // localStorage에 데이터가 없을 때
+        return <div><p>데이터가 없습니다.</p></div>
+      } else { // 데이터가 있을 때
+        let shoes1 = []
+        let getLocalShoes = JSON.parse(localStorage.getItem('preData'))  
 
-  /** TODO 한번본상품, 여러본 본상품 구현 111111111
+        // 2번이하일때는 <p>데이터가 없습니다</p>
+        // 3번이상일때는 표시.
+
+        for (let i = 0 ; i < shoes.length; i++) {
+          for ( let k = 0; k < getLocalShoes.length; k++) {
+            if (shoes[i].id === getLocalShoes[k]) {
+              shoes1.push(shoes[i])
+            }
+          }
+        }
+        return ( 
+            shoes1.map((item, idx) => {
+              console.log('********************', item);
+              return <SHOESCOMPONENT shoes={item} idx={idx} setChngFlag={setChngFlag}  key={idx}></SHOESCOMPONENT> 
+            })
+        )
+      }
+    }
+
+
+  /** TODO 한번본상품11111, 여러본 본상품 구현111111111
    *       팝업띄워보기 (세일하는, 신상품 등등)
    *       사이드바 (채팅기능(1:1문의), 맨위로, 맨아래로)
    *       간이결제
@@ -139,13 +169,9 @@ function App(aaa) {
             <Accordion.Item eventKey="1">
               <Accordion.Header>자주 본 상품</Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                est laborum.
+                {
+                  fn_morePreDataView()
+                }
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
@@ -232,13 +258,11 @@ function App(aaa) {
 }
 
 
-function SHOESCOMPONENT (param,idx) {
+function SHOESCOMPONENT (param) {
   // productContext.Provider
   let temp = useContext(productContext)
   console.log('temp===========', param)
-
   function fn_detailPageMove(idx) {
-
     let arr = JSON.parse(localStorage.getItem('preData'))
     let preData = []
     if (param.fn_isEmpty(arr)) { // arr이 비어있따면
@@ -250,13 +274,13 @@ function SHOESCOMPONENT (param,idx) {
     }
     localStorage.setItem('preData',JSON.stringify(preData))
 
-    history.push('/detail/' + idx)
-  }
+    history.push('/detail/' + idx) 
+  } // end
 
   let history = useHistory()
-  console.log('12345678890')
+
   return (
-    <div className="col-md-4" onClick={ () => { fn_detailPageMove(param.idx) }}> 
+    <div className="col-md-4" onClick={ () => { fn_detailPageMove(param.idx);  }}> 
       <img src={param.shoes.src} width="100%"></img>
       <h4>{param.shoes.title} </h4>
       <p>{param.shoes.content} </p>
