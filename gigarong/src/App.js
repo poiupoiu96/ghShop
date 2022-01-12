@@ -4,13 +4,14 @@ import './App.css';
 import { Navbar,Container,Nav,NavDropdown,Button,Carousel,Accordion } from 'react-bootstrap';
 import data from './data.js';
 import backImg from './background.jpg';
+
 import React, { useContext, useEffect, useState } from 'react';
 import Detail from './Detail.js';
 import axios from 'axios';
  
 import Login from './Login.js';
 import SignUp from './SignUp.js';
-
+import Chat from './Chat.js'
 
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
@@ -18,6 +19,8 @@ import Cart from './Cart.js';
 import { connect } from 'react-redux';
 
 export let productContext = React.createContext();
+
+
 
 
 function App(aaa) {
@@ -102,7 +105,6 @@ function App(aaa) {
         )
       }
     }
-
 
   /** TODO 한번본상품11111, 여러본 본상품 구현111111111
    *       팝업띄워보기 (세일하는, 신상품 등등)
@@ -215,10 +217,8 @@ function App(aaa) {
           <br />
           <br />
           <br />
-
+          <Chat></Chat>
         </Route>
-      
-
         {/* :id란 detail/ 뒤에 아무거나 와도 보여줘라 */}
         {/* :작명 */}
         {/* /:id/:id/:id 가능 */}
@@ -226,7 +226,6 @@ function App(aaa) {
         {/* <Route path="/detail/:id">
           <Detail shoes={shoes} stock={stock} stockUpdate={stockUpdate}/>
         </Route>  */}
-
 
         {/* createContext로 전달하고 싶을 때 */}
         <Route path="/detail/:id">
@@ -252,7 +251,7 @@ function App(aaa) {
           <div>아무거나 적어도 이게 보임</div>
         </Route>
       </Switch>
- 
+
     </div>
   );
 }
@@ -321,7 +320,6 @@ function getCreateStore(state) {
       state: state
   }
 }
-
 // function TableDiv (param,idx) { 
 //     console.log(param)
 //     return (
