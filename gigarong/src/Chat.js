@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { FloatingButton, Item } from 'react-floating-button'
+import { Floating } from 'react-floating-button/dist/styles';
 import butter from './butter.svg';
 
 function chat () {
@@ -12,7 +13,7 @@ function chat () {
                 <Item
                     imgSrc={butter}
                     onClick={() => {
-                    console.log("callback function here");
+                    console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");console.log("callback function here");
                     }}
                 />
                 <Item
@@ -25,6 +26,5 @@ function chat () {
         </div>
     )
 }
-
 
 export default chat 
