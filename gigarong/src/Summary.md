@@ -22,7 +22,6 @@ function App () {
     setName('han')
     name = han으로 바뀌어있음.
 
-20220117 -> 정리
 update 예정..
 
 }
