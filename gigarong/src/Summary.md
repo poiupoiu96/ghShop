@@ -21,7 +21,9 @@ function App () {
     let [name, setName] = useState('kim')
     setName('han')
     name = han으로 바뀌어있음.
-d
+
 update 예정..
 
+
+어떻게 해야할지 고민중....
 }
